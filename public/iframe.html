@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Iframe</title>
+  </head>
+  <body>
+    <h1>Iframe</h1>
+    <p id="debug">Debug...</p>
+    <button id="submit">Submit</button>
+    <script>
+      var targetWindow = top.window;
+      // var targetWindow = parent.window;
+      var destination = './final.html';
+      document.getElementById('submit').onclick = function() {
+        targetWindow.location = destination;
+      }
+    </script>
+  </body>
+</html>
