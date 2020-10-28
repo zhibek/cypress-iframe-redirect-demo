@@ -1,9 +1,23 @@
 describe('Demo test', () => {
 
+  const getIframeWindow = () => {
+    return cy
+      .get('iframe[id="container-iframe"]')
+      .its('0.contentWindow').should('exist')
+  }
+
   it('should visit demo homepage ', () => {
     cy.visit('/', {onBeforeLoad: (win) => { win.sessionStorage.clear()}})
       .wait(3000)
       .reload(true);
+  });
+
+  it('should fix iframe redirect', () => {
+    getIframeWindow().then((win) => {
+      win.document.getElementById('debug').innerHTML = '** Redirect "fixed"!';
+      win.targetWindow = win.parent.window;
+      win.destination = './alt.html';
+    });
   });
 
   it('should click submit button', () => {
